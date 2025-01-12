@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ car.brand }} {{ car.model }}</title>
 
-    <!-- Google Fonts: Poppins -->
+    {% load static %}
+<!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -29,28 +30,26 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0;
-            margin-bottom: 30px;
+            margin: 0 0 30px 0;
         }
 
-        /* Flexbox container for image and table */
         .content {
             display: flex;
             align-items: flex-start;
-            justify-content: flex-start;
-            gap: 100px;
-            max-width: 1200px;
-            width: 100%;
+            gap: 50px;
         }
 
         .car-image {
-            position: relative;
-            width: 100%;
             max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .car-image img {
+            width: 75%;
             height: auto;
-            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .placeholder {
@@ -64,26 +63,19 @@
         }
 
         .price {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: #fff;
             background-color: #9f8ed1;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 10px 0px;
+            border-radius: 20px;
+            margin-top: 5px;
             text-align: center;
-            margin-top: 10px;
-            max-width: 100%;
-            height: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-            overflow: hidden;
-            word-wrap: break-word;
         }
 
         table {
-            width: 30%;
+            width: 100%;
+            max-width: 500px;
             border-radius: 10px;
             overflow: hidden;
             background-color: #fff;
@@ -92,7 +84,7 @@
         }
 
         table th, table td {
-            padding: 8px;
+            padding: 10px 15px;
             text-align: left;
             font-size: 16px;
         }
@@ -103,34 +95,8 @@
             font-weight: 600;
         }
 
-        table td {
-            background-color: #fafafa;
-            padding-left: 15px;
-        }
-
-        table tr:nth-child(odd) {
-            background-color: #f9f9f9;
-        }
-
         table tr:nth-child(even) {
             background-color: #f9f9f9;
-        }
-
-        h2 {
-            font-weight: 400;
-            color: #333;
-            margin-top: 40px;
-            font-size: 24px;
-        }
-
-        .external-image {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .back-form {
@@ -140,7 +106,6 @@
         }
 
         .details-btn {
-            display: inline-block;
             padding: 10px 15px;
             font-size: 14px;
             font-weight: 600;
@@ -150,15 +115,14 @@
             border-radius: 5px;
             text-align: center;
             text-decoration: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .details-btn:hover {
-            color: #FFFFFF; /* Szary kolor tekstu */
-            background-color: #7662b4; /* Zmieniamy kolor tła na ciemniejszy szary po najechaniu */
-            border: none; /* Usuwamy obramowanie */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Zwiększenie cienia przy najechaniu */
+            color: #fff;
+            background-color: #7662b4;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -171,7 +135,7 @@
         <h1>{{ car.brand }} {{ car.model }}</h1>
 
         <div class="content">
-            <!-- Table -->
+            <!-- Tabela szczegółów -->
             <table>
                 <tbody>
                     <tr>
@@ -196,7 +160,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Dostępność</th>
-                        <td>{{ car.is_available|yesno }}</td>
+                        <td>{{ car.is_available|yesno:"Tak,Nie" }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Liczba drzwi</th>
@@ -209,10 +173,10 @@
                 </tbody>
             </table>
 
-            <!-- Image and price -->
+            <!-- Obraz i cena -->
             <div class="car-image">
                 {% if car.image %}
-                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="img-fluid">
+                    <img src="{% static car.image %}" alt="{{ car.brand }} {{ car.model }}">
                 {% else %}
                     <div class="placeholder">Brak zdjęcia</div>
                 {% endif %}

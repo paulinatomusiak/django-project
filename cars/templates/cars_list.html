@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -35,7 +36,7 @@
 
         .cars-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
 
@@ -46,6 +47,12 @@
             overflow: hidden;
             text-align: center;
             padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .car-card img {
@@ -57,7 +64,7 @@
 
         .car-card .name {
             font-weight: 600;
-            color: #7662b4; /* Zmieniamy kolor tła na ciemniejszy szary po najechaniu */
+            color: #7662b4;
             margin-bottom: 10px;
             font-size: 16px;
         }
@@ -69,28 +76,27 @@
             margin-bottom: 10px;
         }
 
-    .details-btn {
-        display: inline-block;
-        padding: 10px 15px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #555; /* Szary kolor tekstu */
-        background-color: #fff; /* Białe tło */
-        border: 1px dashed #ccc; /* Cienka szara przerywana obramówka */
-        border-radius: 5px;
-        text-align: center;
-        text-decoration: none; /* Brak podkreślenia tekstu */
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Cień */
-        transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; /* Płynne przejście */
-    }
+        .details-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            background-color: #fff;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+        }
 
-    .details-btn:hover {
-        color: #FFFFFF; /* Szary kolor tekstu */
-        background-color: #7662b4; /* Zmieniamy kolor tła na ciemniejszy szary po najechaniu */
-        border: none; /* Usuwamy obramowanie */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Zwiększenie cienia przy najechaniu */
-    }
-
+        .details-btn:hover {
+            color: #FFFFFF;
+            background-color: #7662b4;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
 
         .no-cars {
             text-align: center;
@@ -107,12 +113,15 @@
 <body>
     <div class="container">
         <h1>Cars for Rent</h1>
-
         {% if object_list %}
         <div class="cars-grid">
             {% for car in object_list %}
             <div class="car-card">
-                <img src="{{ car.image_url }}" alt="{{ car.brand }} {{ car.model }}">
+                {% if car.image %}
+                    <img src="{% static car.image %}" alt="{{ car.brand }} {{ car.model }}">
+                {% else %}
+                    <img src="{% static 'default.jpg' %}" alt="Default Image">
+                {% endif %}
                 <div class="name">{{ car.brand }} {{ car.model }}</div>
                 <div class="details">
                     <i class="fas fa-gas-pump"></i> {{ car.get_fuel_type_display }}<br>
