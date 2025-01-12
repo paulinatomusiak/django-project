@@ -1,13 +1,139 @@
-<h1>Cars for rent</h1>
-<ul>
-    <!-- Iterate over object_list -->
-    {% for object in object_list %}
-    <!-- Display Objects -->
-    <li>{{ object.name }}</li>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista samochodów</title>
 
-    <hr/>
-    <!-- If object_list is empty  -->
-    {% empty %}
-    <li>There is no cars for rent</li>
-    {% endfor %}
-</ul>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .car-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .car-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .car-card .name {
+            font-weight: 600;
+            color: #7662b4; /* Zmieniamy kolor tła na ciemniejszy szary po najechaniu */
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .car-card .details {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+    .details-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #555; /* Szary kolor tekstu */
+        background-color: #fff; /* Białe tło */
+        border: 1px dashed #ccc; /* Cienka szara przerywana obramówka */
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none; /* Brak podkreślenia tekstu */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Cień */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; /* Płynne przejście */
+    }
+
+    .details-btn:hover {
+        color: #FFFFFF; /* Szary kolor tekstu */
+        background-color: #7662b4; /* Zmieniamy kolor tła na ciemniejszy szary po najechaniu */
+        border: none; /* Usuwamy obramowanie */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Zwiększenie cienia przy najechaniu */
+    }
+
+
+        .no-cars {
+            text-align: center;
+            font-size: 18px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        .details i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cars for Rent</h1>
+
+        {% if object_list %}
+        <div class="cars-grid">
+            {% for car in object_list %}
+            <div class="car-card">
+                <img src="{{ car.image_url }}" alt="{{ car.brand }} {{ car.model }}">
+                <div class="name">{{ car.brand }} {{ car.model }}</div>
+                <div class="details">
+                    <i class="fas fa-gas-pump"></i> {{ car.get_fuel_type_display }}<br>
+                    <i class="fas fa-car"></i>
+                    {% if car.get_transmission_display == "Automatyczna" %}
+                        Automat
+                    {% elif car.get_transmission_display == "Manualna" %}
+                        Manual
+                    {% else %}
+                        {{ car.get_transmission_display }}
+                    {% endif %}
+                    <br>
+                    <i class="fas fa-users"></i> {{ car.seats }}
+                </div>
+                <a href="{% url 'car-detail' car.id %}" class="details-btn">Wybierz</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-cars">There are no cars for rent</p>
+        {% endif %}
+    </div>
+</body>
+</html>

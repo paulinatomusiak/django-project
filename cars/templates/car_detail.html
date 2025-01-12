@@ -1,5 +1,226 @@
-<h1>Car {{ object.name }}</h1>
-<p>lorem ipsum</p>
-<ul>
-    <li>Brand: {{ object.brand }}</li>
-</ul>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ car.brand }} {{ car.model }}</title>
+
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 10px auto;
+            padding: 10px;
+        }
+
+        h1 {
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0;
+            margin-bottom: 30px;
+        }
+
+        /* Flexbox container for image and table */
+        .content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 100px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .car-image {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .placeholder {
+            background-color: #f0f0f0;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            border: 1px dashed #ddd;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #9f8ed1;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-align: center;
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        table {
+            width: 30%;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 8px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        table th {
+            background-color: #fafafa;
+            color: #333;
+            font-weight: 600;
+        }
+
+        table td {
+            background-color: #fafafa;
+            padding-left: 15px;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            font-weight: 400;
+            color: #333;
+            margin-top: 40px;
+            font-size: 24px;
+        }
+
+        .external-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .back-form {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .details-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            background-color: #fff;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+        }
+
+        .details-btn:hover {
+            color: #FFFFFF; /* Szary kolor tekstu */
+            background-color: #7662b4; /* Zmieniamy kolor tła na ciemniejszy szary po najechaniu */
+            border: none; /* Usuwamy obramowanie */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Zwiększenie cienia przy najechaniu */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-form">
+            <a href="{% url 'cars-list' %}" class="details-btn">Powrót do listy</a>
+        </div>
+
+        <h1>{{ car.brand }} {{ car.model }}</h1>
+
+        <div class="content">
+            <!-- Table -->
+            <table>
+                <tbody>
+                    <tr>
+                        <th scope="row">Rok produkcji</th>
+                        <td>{{ car.year }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Typ nadwozia</th>
+                        <td>{{ car.get_car_type_display }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Typ paliwa</th>
+                        <td>{{ car.get_fuel_type_display }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Typ skrzyni biegów</th>
+                        <td>{{ car.get_transmission_display }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Pojemność bagażnika</th>
+                        <td>{{ car.trunk_size }} l</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Dostępność</th>
+                        <td>{{ car.is_available|yesno }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Liczba drzwi</th>
+                        <td>{{ car.doors }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Liczba miejsc</th>
+                        <td>{{ car.seats }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Image and price -->
+            <div class="car-image">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" alt="{{ car.brand }} {{ car.model }}" class="img-fluid">
+                {% else %}
+                    <div class="placeholder">Brak zdjęcia</div>
+                {% endif %}
+                <div class="price">
+                    Stawka dzienna: {{ car.daily_rate }} zł
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
