@@ -1,0 +1,13 @@
+<h1>Cars for rent</h1>
+<ul>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+    <li>{{ object.name }}</li>
+
+    <hr/>
+    <!-- If object_list is empty  -->
+    {% empty %}
+    <li>There is no cars for rent</li>
+    {% endfor %}
+</ul>
