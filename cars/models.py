@@ -3,6 +3,7 @@ from management.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 import os
 import random
+from django.db.models import Q
 
 
 class Car(models.Model):
@@ -43,11 +44,14 @@ class Car(models.Model):
     fuel_type = models.CharField(max_length=10, choices=FUEL_TYPE_CHOICES)
     trunk_size = models.PositiveIntegerField(help_text="Pojemność bagażnika w litrach")
     image = models.CharField(max_length=255, blank=True, null=True)
-    is_available = models.BooleanField(default=True)
 
     @property
     def name(self) -> str:
         return f"{self.brand} {self.model}"
+
+    @property
+    def is_reserved(self):
+        return self.reservations.all().exists()
 
     def __str__(self) -> str:
         return f"{self.brand} {self.model} ({self.year}) Samochód {self.name} id: {self.id}"
@@ -72,6 +76,17 @@ class Car(models.Model):
         if not self.image:
             self.image = self.assign_random_photo()
         super().save(*args, **kwargs)
+
+    def is_selected_days_reserved(self, new_start_date, new_end_date):
+        check = Car.get_selected_days_reserved_filter(new_start_date, new_end_date)
+        return Car.objects.filter(check, id=self.id).exists()
+
+    @staticmethod
+    def get_selected_days_reserved_filter(new_start_date, new_end_date):
+        return Q(
+            reservations__start_date__lt=new_end_date,
+            reservations__end_date__gt=new_start_date,
+        )
 
 
 class Reservation(models.Model):

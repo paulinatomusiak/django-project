@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Lista samochodów</title>
 
     <!-- Google Fonts: Poppins -->
@@ -32,6 +33,86 @@
             color: #333;
             text-align: center;
             margin-bottom: 40px;
+        }
+
+        .filter-box {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+        }
+
+        .filter-section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .filter-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .filter-box label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-box input,
+        .filter-box select {
+            padding: 8px 10px;
+            font-size: 14px;
+            color: #555;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .filter-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .filter-btn,
+        .reset-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            background-color: #fff;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .reset-btn:hover {
+            color: #FFFFFF;
+            background-color: #7662b4;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .record-info {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 15px;
+            text-align: center;
         }
 
         .cars-grid {
@@ -104,15 +185,38 @@
             color: #888;
             margin-top: 20px;
         }
-
-        .details i {
-            margin-right: 8px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Cars for Rent</h1>
+
+        <!-- Box z filtrowaniem -->
+        <div class="filter-box">
+            <form method="get">
+                <div class="filter-section">
+                    <h2>Dane techniczne</h2>
+                    {{ filter.form.brand.label_tag }} {{ filter.form.brand }}
+                    {{ filter.form.seats.label_tag }} {{ filter.form.seats }}
+                    {{ filter.form.car_type.label_tag }} {{ filter.form.car_type }}
+                    {{ filter.form.fuel_type.label_tag }} {{ filter.form.fuel_type }}
+                    {{ filter.form.transmission.label_tag }} {{ filter.form.transmission }}
+                </div>
+                <div class="filter-section">
+                    <h2>Dostępność w datach</h2>
+                    {{ filter.form.start_date.label_tag }} {{ filter.form.start_date }}
+                    {{ filter.form.end_date.label_tag }} {{ filter.form.end_date }}
+                </div>
+                <div class="filter-actions">
+                    <button type="submit" class="filter-btn">Filtruj</button>
+                    <a href="{% url 'cars-list' %}" class="reset-btn">Resetuj</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Liczba dostępnych samochodów -->
+        <p class="record-info">Liczba dostępnych samochodów: {{ record_count }}</p>
+
         {% if object_list %}
         <div class="cars-grid">
             {% for car in object_list %}

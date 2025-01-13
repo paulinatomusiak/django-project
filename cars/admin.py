@@ -6,7 +6,7 @@ from cars.models import Car, Reservation
 
 
 class CarAdmin(admin.ModelAdmin):
-    list_display = ["id", "is_available", "brand", "model", "year"]
+    list_display = ["id", "brand", "model", "year"]
     fields = [
         "brand",
         "model",
@@ -20,7 +20,7 @@ class CarAdmin(admin.ModelAdmin):
         "trunk_size",
         "image",
     ]
-    readonly_fields = ["is_available"]
+    readonly_fields = ["is_reserved"]
 
 
 admin.site.register(Car, CarAdmin)
