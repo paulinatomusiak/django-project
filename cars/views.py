@@ -50,8 +50,7 @@ def create_reservation(request: HttpRequest, pk: int) -> HttpResponse | None:
                     start_date=start_date,
                     end_date=end_date,
                 )
-                return redirect("cars-list")
-                # TODO:przekierowanie profil
+                return redirect('user-detail', request.user.id)
         else:
             return render(request, "car_detail.html", {"object": car, "form": form})
     return redirect("cars-list")

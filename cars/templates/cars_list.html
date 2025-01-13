@@ -188,6 +188,8 @@
     </style>
 </head>
 <body>
+<form action="{% url 'user-detail' request.user.id %}"><input type="submit" value="Profil uzytkownika"/></form>
+
     <div class="container">
         <h1>Cars for Rent</h1>
 
