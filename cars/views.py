@@ -7,6 +7,8 @@ from cars.filters import CarFilter
 from cars.forms import ReservationForm
 from django_filters.views import FilterView
 from typing import Any
+from django.contrib.auth.decorators import login_required
+
 
 
 class CarsListView(FilterView):
@@ -19,7 +21,7 @@ class CarsListView(FilterView):
         context = super().get_context_data(**kwargs)
         context["record_count"] = context[
             "object_list"
-        ].count()  # Liczba wyników filtrowania
+        ].count()
         return context
 
 
@@ -63,3 +65,9 @@ def create_reservation(request: HttpRequest, pk: int) -> HttpResponse:
         return render(request, "car_detail.html", {"car": car, "form": form})
 
     return redirect("cars-list")
+
+@login_required
+def delete_reservation(request: HttpRequest, pk: int) -> HttpResponse:
+    reservation = get_object_or_404(Reservation, pk=pk, user=request.user)
+    reservation.delete()
+    return redirect("user-detail", request.user.id)

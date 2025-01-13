@@ -91,6 +91,14 @@
             background-color: #5e4a99;
         }
 
+        .btn-danger {
+            background-color: #d9534f;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
         ul {
             list-style: none;
             padding: 0;
@@ -105,12 +113,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        li hr {
-            margin: 15px 0;
-            border: none;
-            border-top: 1px solid #ddd;
-        }
-
         .reservation-details {
             display: flex;
             justify-content: space-between;
@@ -122,7 +124,8 @@
         }
 
         .reservation-action {
-            margin-left: 10px;
+            display: flex;
+            gap: 10px;
         }
     </style>
 </head>
@@ -150,6 +153,10 @@
                             {{ res.start_date }} - {{ res.end_date }}
                         </div>
                         <div class="reservation-action">
+                            <form method="POST" action="{% url 'delete-reservation' res.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Anuluj</button>
+                            </form>
                             <form action="{% url 'car-detail' res.car.id %}">
                                 <button class="btn">Zobacz</button>
                             </form>
@@ -157,7 +164,7 @@
                     </div>
                 </li>
             {% empty %}
-                <li>Nie ma rezerwacji</li>
+                <li>Nie masz rezerwacji</li>
             {% endfor %}
         </ul>
     </div>
