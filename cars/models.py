@@ -92,8 +92,8 @@ class Car(models.Model):
 class Reservation(models.Model):
     car = models.ForeignKey(Car, on_delete=models.PROTECT, related_name="reservations")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    start_date = models.DateField(verbose_name="Start of reservation")
-    end_date = models.DateField(verbose_name="End of reservation")
+    start_date = models.DateField(verbose_name="Początek rezerwacji")
+    end_date = models.DateField(verbose_name="Koniec rezerwacji")
 
     def __str__(self) -> str:
-        return f"Reservation {self.id} car {self.car}"
+        return f"Reservation {self.id} for car {self.car.name}"

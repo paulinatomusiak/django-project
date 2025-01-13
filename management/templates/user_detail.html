@@ -14,6 +14,40 @@
             padding: 0;
         }
 
+        .top-bar {
+            background-color: #7662b4;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-bar .logo {
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+        }
+
+        .top-bar .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-bar .nav-links a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .top-bar .nav-links a:hover {
+            color: #f1c40f;
+        }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -93,11 +127,17 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <form action="{% url 'cars-list' %}">
-            <button class="btn">Lista samochodów</button>
-        </form>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
+        <div class="nav-links">
+            <a href="{% url 'cars-list' %}">Lista samochodów</a>
+            <a href="{% url 'user-detail' object.id %}">Profil użytkownika</a>
+        </div>
+    </div>
 
+    <!-- Main Content -->
+    <div class="container">
         <h1>Profil {{ object.username }}</h1>
 
         <h2>Rezerwacje</h2>
