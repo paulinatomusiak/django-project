@@ -4,10 +4,10 @@ from cars.models import Car
 
 
 class Command(BaseCommand):
+    number_of_generated_cars = 10
     help = "Generates sample car data for development"
-    number_of_generated_cars = 15
 
-    def handle(self, number_of_generated_cars: int, *args, **options) -> None:
+    def handle(self, *args, **options) -> None:
         TRANSMISSION_CHOICES: list[str] = ["manual", "automatic"]
         FUEL_TYPE_CHOICES: list[str] = ["petrol", "diesel", "electric", "hybrid"]
 
@@ -28,7 +28,7 @@ class Command(BaseCommand):
             "convertible": {"photo": "car_photos/2.jpeg", "seats": 2, "doors": 2},
         }
 
-        for _ in range(number_of_generated_cars):
+        for _ in range(self.number_of_generated_cars):
             car_type: str = random.choice(list(car_types.keys()))
             car_data: dict[str, int | str] = car_types[car_type]
 
@@ -54,6 +54,6 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"Successfully generated {number_of_generated_cars} cars"
+                f"Successfully generated {self.number_of_generated_cars} cars"
             )
         )
