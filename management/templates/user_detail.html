@@ -34,6 +34,7 @@
         .top-bar .nav-links {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
 
         .top-bar .nav-links a {
@@ -45,6 +46,20 @@
         }
 
         .top-bar .nav-links a:hover {
+            color: #f1c40f;
+        }
+
+        .top-bar .logout-btn {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .top-bar .logout-btn:hover {
             color: #f1c40f;
         }
 
@@ -136,6 +151,10 @@
         <div class="nav-links">
             <a href="{% url 'cars-list' %}">Lista samochodów</a>
             <a href="{% url 'user-detail' object.id %}">Profil użytkownika</a>
+            <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Wyloguj</button>
+            </form>
         </div>
     </div>
 

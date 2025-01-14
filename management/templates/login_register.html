@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie i Rejestracja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-bar {
+            background-color: #7662b4;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-bar .logo {
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .forms-container {
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+        }
+
+        .form-section {
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .form-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        form {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #7662b4;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #5e4a99;
+        }
+
+        /* Stylowanie wiadomości */
+        .messages {
+            margin-bottom: 20px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .messages li {
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .messages .message-success {
+            background-color: #28a745;
+        }
+
+        .messages .message-error {
+            background-color: #dc3545;
+        }
+
+        .messages .message-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .messages .message-info {
+            background-color: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <a href="{% url 'home' %}" class="logo">CarBooking</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Wyświetlanie wiadomości -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message-{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="forms-container">
+            <!-- Formularz logowania -->
+            <div class="form-section">
+                <h2>Logowanie</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {{ login_form.as_p }}
+                    <button type="submit" name="login">Zaloguj</button>
+                </form>
+            </div>
+
+            <!-- Formularz rejestracji -->
+            <div class="form-section">
+                <h2>Rejestracja</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {{ register_form.as_p }}
+                    <button type="submit" name="register">Zarejestruj</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
