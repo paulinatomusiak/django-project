@@ -1,0 +1,624 @@
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.btn {
+    background-color: #7662b4;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+}
+
+.btn:hover {
+    background-color: #5e4a99;
+}
+
+.car-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-card .details {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.car-card .name {
+    color: #7662b4;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.car-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.car-image {
+    flex-grow: 1;
+    max-width: 400px;
+    text-align: center;
+}
+
+.car-image img {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+    max-width: 300px;
+    width: 100%;
+}
+
+.car-image-container {
+    flex-shrink: 0;
+    max-width: 400px;
+    text-align: center;
+}
+
+.car-image-container img {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    height: 400px;
+    width: 100%;
+}
+
+.cars-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    max-width: 1000px;
+    padding: 30px;
+}
+
+.details-btn {
+    background-color: #fff;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    color: #555;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.details-btn:hover {
+    background-color: #7662b4;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: #FFFFFF;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.filter-box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.filter-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filter-box input,
+.filter-box select {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #555;
+    font-size: 14px;
+    padding: 8px 10px;
+}
+
+.filter-box label {
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.filter-btn {
+    background-color: #fff;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    color: #555;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: #7662b4;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: #FFFFFF;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section h2 {
+    color: #555;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.h1 {
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.helptext {
+    color: #555;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+
+.messages {
+    list-style: none;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.messages li {
+    background-color: #28a745;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+}
+
+.no-cars {
+    color: #888;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.placeholder {
+    background-color: #f0f0f0;
+    border: 1px dashed #ddd;
+    border-radius: 10px;
+    color: #888;
+    font-size: 18px;
+    padding: 20px;
+    text-align: center;
+}
+
+.price {
+    background-color: #00C8A0;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    max-width: 495px;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+.price-label {
+    background-color: #00C8A0;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.record-info {
+    color: #555;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.reservation-action {
+    display: flex;
+    gap: 10px;
+}
+
+.reservation-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    padding: 20px;
+    text-align: center;
+}
+
+.reservation-box h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.reservation-dates {
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.reservation-dates span {
+    color: #555;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.reservation-details {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reservation-info {
+    font-size: 14px;
+}
+
+table {
+    background-color: #fff;
+    border-collapse: collapse;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    margin-bottom: 20px;
+    max-width: 500px;
+    width: 100%;
+}
+
+table th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: 600;
+    padding: 15px;
+    text-align: left;
+}
+
+table th, table td {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px;
+    text-align: left;
+}
+
+table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.top-bar {
+    align-items: center;
+    background-color: #7662b4;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.top-bar .logo {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.top-bar .logout-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.top-bar .logout-btn:hover {
+    color: #f1c40f;
+}
+
+.top-bar .nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.top-bar .nav-links a {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.top-bar .nav-links a:hover {
+    color: #f1c40f;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+
+.car-detail-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+.car-detail-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+.reservation-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+.reservation-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+        }
+.user-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+.login-register-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+.list-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+
+.list-filter-box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.list-filter-section {
+    margin-bottom: 20px;
+}
+
+.list-filter-section h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.list-filter-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.list-filter-box label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.list-filter-box input,
+.list-filter-box select {
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.list-filter-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.list-filter-btn,
+.list-reset-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    background-color: #fff;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.list-filter-btn:hover,
+.list-reset-btn:hover {
+    color: #FFFFFF;
+    background-color: #7662b4;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.list-record-info {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.list-cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.list-car-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.list-car-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.list-car-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.list-car-card .name {
+    font-weight: 600;
+    color: #7662b4;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.list-car-card .details {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.list-details-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    background-color: #fff;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.list-details-btn:hover {
+    color: #FFFFFF;
+    background-color: #7662b4;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.list-no-cars {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+}
+

@@ -32,7 +32,7 @@ def login_register_view(request):
                 messages.success(request, "Konto stworzono pomyślnie")
                 return redirect("cars-list")
             else:
-                messages.error(request, "Wystąpił problem w trakcie rezerwacji.")
+                messages.error(request, "Wystąpił problem w trakcie rejestracji.")
 
     return render(
         request,

@@ -4,19 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Szczegóły rezerwacji</title>
-    {% load static %}
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'styles/global.css' %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
+        .reservation-container {
             max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
@@ -25,34 +17,12 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .content {
+        .reservation-content {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             gap: 20px;
             align-items: flex-start;
-        }
-
-        .reservation-dates {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-        }
-
-        .reservation-dates span {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #555;
         }
 
         table {
@@ -80,115 +50,10 @@
         table tr:nth-child(even) {
             background-color: #fafafa;
         }
-
-        .car-image {
-            text-align: center;
-            max-width: 400px;
-            flex-grow: 1;
-        }
-
-        .car-image img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .placeholder {
-            background-color: #f0f0f0;
-            color: #888;
-            text-align: center;
-            padding: 20px;
-            border: 1px dashed #ddd;
-            font-size: 18px;
-            border-radius: 10px;
-        }
-
-        .price-label {
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #00C8A0;
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin-top: 15px;
-            display: inline-block;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #fff;
-            background-color: #7662b4;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .btn:hover {
-            background-color: #5e4a99;
-        }
-
-        .top-bar {
-            background-color: #7662b4;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .top-bar .logo {
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            color: white;
-        }
-
-        .top-bar .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .top-bar .nav-links a {
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            transition: color 0.3s ease;
-        }
-
-        .top-bar .nav-links a:hover {
-            color: #f1c40f;
-        }
-
-        .top-bar .logout-btn {
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .top-bar .logout-btn:hover {
-            color: #f1c40f;
-        }
     </style>
 </head>
 <body>
-    <!-- Top Bar -->
+    <!-- Menu -->
     <div class="top-bar">
         <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
         <div class="nav-links">
@@ -201,8 +66,8 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container">
+    <!-- Main -->
+    <div class="reservation-container">
         <h1>Szczegóły rezerwacji</h1>
 
         <!-- Dates -->
@@ -211,7 +76,7 @@
             <p>Data zakończenia: <span>{{ reservation.end_date }}</span></p>
         </div>
 
-        <div class="content">
+        <div class="reservation-content">
             <!-- Tabela szczegółów -->
             <table>
                 <tbody>
@@ -246,7 +111,7 @@
                 </tbody>
             </table>
 
-            <!-- Obraz samochodu -->
+            <!-- Zdjecie samochodu -->
             <div class="car-image">
                 {% if reservation.car.image %}
                     <img src="{% static reservation.car.image %}" alt="{{ reservation.car.brand }} {{ reservation.car.model }}">
@@ -256,7 +121,7 @@
             </div>
         </div>
 
-        <!-- Price Label -->
+        <!-- Cena -->
         <div class="price-label">
             Kwota do zapłaty: {{ total_price }} zł
         </div>

@@ -1,315 +1,80 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Lista samochodów</title>
 
-    <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        .top-bar {
-            background-color: #7662b4;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .top-bar .logo {
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            color: white;
-        }
-
-        .top-bar .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .top-bar .nav-links a {
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            transition: color 0.3s ease;
-        }
-
-        .top-bar .nav-links a:hover {
-            color: #f1c40f;
-        }
-
-        .top-bar .logout-btn {
-            font-size: 14px;
-            font-weight: 600;
-            color: white;
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .top-bar .logout-btn:hover {
-            color: #f1c40f;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        h1 {
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .filter-box {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .filter-section {
-            margin-bottom: 20px;
-        }
-
-        .filter-section h2 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        .filter-box form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .filter-box label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .filter-box input,
-        .filter-box select {
-            padding: 8px 10px;
-            font-size: 14px;
-            color: #555;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .filter-actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .filter-btn,
-        .reset-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #555;
-            background-color: #fff;
-            border: 1px dashed #ccc;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-        }
-
-        .filter-btn:hover,
-        .reset-btn:hover {
-            color: #FFFFFF;
-            background-color: #7662b4;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .record-info {
-            font-size: 14px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .cars-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .car-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            text-align: center;
-            padding: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .car-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .car-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .car-card .name {
-            font-weight: 600;
-            color: #7662b4;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .car-card .details {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.4;
-            margin-bottom: 10px;
-        }
-
-        .details-btn {
-            display: inline-block;
-            padding: 10px 15px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #555;
-            background-color: #fff;
-            border: 1px dashed #ccc;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-        }
-
-        .details-btn:hover {
-            color: #FFFFFF;
-            background-color: #7662b4;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .no-cars {
-            text-align: center;
-            font-size: 18px;
-            color: #888;
-            margin-top: 20px;
-        }
-    </style>
 </head>
+
 <body>
-    <!-- Top Bar -->
+    <!-- Menu -->
     <div class="top-bar">
         <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
         <div class="nav-links">
             <a href="{% url 'cars-list' %}">Lista samochodów</a>
             <a href="{% url 'user-detail' request.user.id %}">Profil użytkownika</a>
-                <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+            <form method="post" action="{% url 'logout' %}" style="margin: 0;">
                 {% csrf_token %}
                 <button type="submit" class="logout-btn">Wyloguj</button>
             </form>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container">
+    <!-- Main -->
+    <div class="list-container">
         <h1>Cars for Rent</h1>
 
         <!-- Box z filtrowaniem -->
-        <div class="filter-box">
+        <div class="list-filter-box">
             <form method="get">
-                <div class="filter-section">
-                    <h2>Dane techniczne</h2>
-                    {{ filter.form.brand.label_tag }} {{ filter.form.brand }}
-                    {{ filter.form.seats.label_tag }} {{ filter.form.seats }}
-                    {{ filter.form.car_type.label_tag }} {{ filter.form.car_type }}
-                    {{ filter.form.fuel_type.label_tag }} {{ filter.form.fuel_type }}
-                    {{ filter.form.transmission.label_tag }} {{ filter.form.transmission }}
+                <div class="list-filter-section">
+                    <h2>Dane techniczne</h2> {{ filter.form.brand.label_tag }} {{ filter.form.brand }} {{ filter.form.seats.label_tag }} {{ filter.form.seats }} {{ filter.form.car_type.label_tag }} {{ filter.form.car_type }} {{ filter.form.fuel_type.label_tag }} {{ filter.form.fuel_type }} {{ filter.form.transmission.label_tag }} {{ filter.form.transmission }}
                 </div>
-                <div class="filter-section">
-                    <h2>Dostępność w datach</h2>
-                    {{ filter.form.start_date.label_tag }} {{ filter.form.start_date }}
-                    {{ filter.form.end_date.label_tag }} {{ filter.form.end_date }}
+                <div class="list-filter-section">
+                    <h2>Dostępność w datach</h2> {{ filter.form.start_date.label_tag }} {{ filter.form.start_date }} {{ filter.form.end_date.label_tag }} {{ filter.form.end_date }}
                 </div>
-                <div class="filter-actions">
-                    <button type="submit" class="filter-btn">Filtruj</button>
-                    <a href="{% url 'cars-list' %}" class="reset-btn">Resetuj</a>
+                <div class="list-filter-actions">
+                    <button type="submit" class="list-filter-btn">Filtruj</button>
+                    <a href="{% url 'cars-list' %}" class="list-reset-btn">Resetuj</a>
                 </div>
             </form>
         </div>
 
         <!-- Liczba dostępnych samochodów -->
-        <p class="record-info">Liczba dostępnych samochodów: {{ record_count }}</p>
+        <p class="list-record-info">Liczba dostępnych samochodów: {{ record_count }}</p>
 
         {% if object_list %}
-        <div class="cars-grid">
+        <div class="list-cars-grid">
             {% for car in object_list %}
-            <div class="car-card">
+            <div class="list-car-card">
                 {% if car.image %}
-                    <img src="{% static car.image %}" alt="{{ car.brand }} {{ car.model }}">
-                {% else %}
-                    <img src="{% static 'default.jpg' %}" alt="Default Image">
-                {% endif %}
+                <img src="{% static car.image %}" alt="{{ car.brand }} {{ car.model }}"> {% else %}
+                <img src="{% static 'default.jpg' %}" alt="Default Image"> {% endif %}
                 <div class="name">{{ car.brand }} {{ car.model }}</div>
-                <div class="details">
-                    <i class="fas fa-gas-pump"></i> {{ car.get_fuel_type_display }}<br>
-                    <i class="fas fa-car"></i>
-                    {% if car.get_transmission_display == "Automatyczna" %}
-                        Automat
-                    {% elif car.get_transmission_display == "Manualna" %}
-                        Manual
-                    {% else %}
-                        {{ car.get_transmission_display }}
-                    {% endif %}
+                <div class="list-details">
+                    <i class="fas fa-gas-pump"></i> {{ car.get_fuel_type_display }}
+                    <br>
+                    <i class="fas fa-car"></i> {% if car.get_transmission_display == "Automatyczna" %} Automat {% elif car.get_transmission_display == "Manualna" %} Manual {% else %} {{ car.get_transmission_display }} {% endif %}
                     <br>
                     <i class="fas fa-users"></i> {{ car.seats }}
                 </div>
-                <a href="{% url 'car-detail' car.id %}" class="details-btn">Wybierz</a>
+                <a href="{% url 'car-detail' car.id %}" class="list-details-btn">Wybierz</a>
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <p class="no-cars">There are no cars for rent</p>
+        <p class="list-no-cars">There are no cars for rent</p>
         {% endif %}
     </div>
 </body>
+
 </html>

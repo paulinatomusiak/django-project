@@ -5,54 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logowanie i Rejestracja</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        .top-bar {
-            background-color: #7662b4;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .top-bar .logo {
-            font-size: 18px;
-            font-weight: 600;
-            text-decoration: none;
-            color: white;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .helptext {
-            font-size: 0.8em;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
         .forms-container {
             display: flex;
             gap: 50px;
@@ -120,96 +75,64 @@
             background-color: #5e4a99;
         }
 
-        /* Dopasowanie wysokości obu sekcji */
         .form-section {
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Centruje cały formularz w pionie */
-        height: 100%;            /* Rozciąga kontener na pełną wysokość rodzica */
+        justify-content: center;
+        height: 100%;
     }
 
-        .messages {
-            margin-bottom: 20px;
-            padding: 0;
-            list-style: none;
-        }
 
-        .messages li {
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #fff;
-        }
-
-        .messages .message-success {
-            background-color: #28a745;
-        }
-
-        .messages .message-error {
-            background-color: #dc3545;
-        }
-
-        .messages .message-warning {
-            background-color: #ffc107;
-            color: #212529;
-        }
-
-        .messages .message-info {
-            background-color: #17a2b8;
-        }
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <a href="{% url 'home' %}" class="logo">CarBooking</a>
-    </div>
+<div class="top-bar">
+    <a href="{% url 'home' %}" class="logo">CarBooking</a>
+</div>
 
-    <div class="container">
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li class="message-{{ message.tags }}">{{ message }}</li>
+<div class="login-register">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="message-{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="forms-container">
+        <div class="form-section">
+            <h2>Logowanie</h2>
+            <form method="post" action="">
+                {% csrf_token %}
+                {% for field in login_form %}
+                <div class="form-field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small class="helptext">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
                 {% endfor %}
-            </ul>
-        {% endif %}
-
-        <div class="forms-container">
-            <div class="form-section">
-                <h2>Logowanie</h2>
-                <form method="post" action="">
-                    {% csrf_token %}
-                    {% for field in login_form %}
-                        <div class="form-field">
-                            {{ field.label_tag }}
-                            {{ field }}
-                            {% if field.help_text %}
-                                <small class="helptext">{{ field.help_text }}</small>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <button type="submit" name="login">Zaloguj</button>
-                </form>
-            </div>
-
-            <div class="form-section">
-                <h2>Rejestracja</h2>
-                <form method="post" action="">
-                    {% csrf_token %}
-                    {% for field in register_form %}
-                        <div class="form-field">
-                            {{ field.label_tag }}
-                            {{ field }}
-                            {% if field.help_text %}
-                                <small class="helptext">{{ field.help_text }}</small>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    <button type="submit" name="register">Zarejestruj</button>
-                </form>
-            </div>
+                <button type="submit" name="login">Zaloguj</button>
+            </form>
+        </div>
+        <div class="form-section">
+            <h2>Rejestracja</h2>
+            <form method="post" action="">
+                {% csrf_token %}
+                {% for field in register_form %}
+                <div class="form-field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small class="helptext">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" name="register">Zarejestruj</button>
+            </form>
         </div>
     </div>
+</div>
 </body>
 </html>
