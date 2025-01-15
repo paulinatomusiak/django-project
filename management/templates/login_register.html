@@ -47,6 +47,12 @@
             text-align: center;
         }
 
+        .helptext {
+            font-size: 0.8em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
         .forms-container {
             display: flex;
             gap: 50px;
@@ -55,7 +61,7 @@
 
         .form-section {
             flex: 1;
-            max-width: 300px;
+            max-width: 350px;
         }
 
         .form-section h2 {
@@ -66,11 +72,34 @@
         }
 
         form {
+            display: block;
+            flex-direction: column;
+            height: 400px;
+            justify-content: center; /* Centruje pola w pionie */
+            align-items: center;    /* Opcjonalnie centruje pola w poziomie */
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        form .form-field {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        form input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
         }
 
         form button {
@@ -91,7 +120,14 @@
             background-color: #5e4a99;
         }
 
-        /* Stylowanie wiadomości */
+        /* Dopasowanie wysokości obu sekcji */
+        .form-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centruje cały formularz w pionie */
+        height: 100%;            /* Rozciąga kontener na pełną wysokość rodzica */
+    }
+
         .messages {
             margin-bottom: 20px;
             padding: 0;
@@ -126,15 +162,11 @@
     </style>
 </head>
 <body>
-    <!-- Top Bar -->
     <div class="top-bar">
         <a href="{% url 'home' %}" class="logo">CarBooking</a>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
-
-        <!-- Wyświetlanie wiadomości -->
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -144,22 +176,36 @@
         {% endif %}
 
         <div class="forms-container">
-            <!-- Formularz logowania -->
             <div class="form-section">
                 <h2>Logowanie</h2>
                 <form method="post" action="">
                     {% csrf_token %}
-                    {{ login_form.as_p }}
+                    {% for field in login_form %}
+                        <div class="form-field">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small class="helptext">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                     <button type="submit" name="login">Zaloguj</button>
                 </form>
             </div>
 
-            <!-- Formularz rejestracji -->
             <div class="form-section">
                 <h2>Rejestracja</h2>
                 <form method="post" action="">
                     {% csrf_token %}
-                    {{ register_form.as_p }}
+                    {% for field in register_form %}
+                        <div class="form-field">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small class="helptext">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                     <button type="submit" name="register">Zarejestruj</button>
                 </form>
             </div>

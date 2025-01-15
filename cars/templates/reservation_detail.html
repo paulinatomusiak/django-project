@@ -29,6 +29,7 @@
             font-size: 24px;
             font-weight: 600;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .content {
@@ -37,6 +38,21 @@
             justify-content: space-between;
             gap: 20px;
             align-items: flex-start;
+        }
+
+        .reservation-dates {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .reservation-dates span {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
         }
 
         table {
@@ -99,6 +115,7 @@
             margin-top: 15px;
             display: inline-block;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         .btn {
@@ -114,6 +131,7 @@
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 20px;
         }
 
         .btn:hover {
@@ -187,6 +205,12 @@
     <div class="container">
         <h1>Szczegóły rezerwacji</h1>
 
+        <!-- Dates -->
+        <div class="reservation-dates">
+            <p>Data rozpoczęcia: <span>{{ reservation.start_date }}</span></p>
+            <p>Data zakończenia: <span>{{ reservation.end_date }}</span></p>
+        </div>
+
         <div class="content">
             <!-- Tabela szczegółów -->
             <table>
@@ -196,12 +220,12 @@
                         <td>{{ reservation.car.brand }} {{ reservation.car.model }}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Data rozpoczęcia</th>
-                        <td>{{ reservation.start_date }}</td>
+                        <th scope="row">Typ samochodu</th>
+                        <td>{{ reservation.car.get_car_type_display }}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Data zakończenia</th>
-                        <td>{{ reservation.end_date }}</td>
+                        <th scope="row">Typ paliwa</th>
+                        <td>{{ reservation.car.get_fuel_type_display }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Cena za dzień</th>
@@ -222,20 +246,24 @@
                 </tbody>
             </table>
 
-            <!-- Obraz i cena -->
+            <!-- Obraz samochodu -->
             <div class="car-image">
                 {% if reservation.car.image %}
                     <img src="{% static reservation.car.image %}" alt="{{ reservation.car.brand }} {{ reservation.car.model }}">
                 {% else %}
                     <div class="placeholder">Brak zdjęcia</div>
                 {% endif %}
-                <div class="price-label">
-                    Łączna cena: {{ total_price }} zł
-                </div>
             </div>
         </div>
 
-        <a href="{% url 'user-detail' reservation.user.id %}" class="btn">Powrót do profilu</a>
+        <!-- Price Label -->
+        <div class="price-label">
+            Kwota do zapłaty: {{ total_price }} zł
+        </div>
+
+        <div>
+            <a href="{% url 'user-detail' reservation.user.id %}" class="btn">Powrót do rezerwacji</a>
+        </div>
     </div>
 </body>
 </html>
