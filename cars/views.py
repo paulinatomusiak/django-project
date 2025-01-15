@@ -71,3 +71,19 @@ def delete_reservation(request: HttpRequest, pk: int) -> HttpResponse:
     reservation = get_object_or_404(Reservation, pk=pk, user=request.user)
     reservation.delete()
     return redirect("user-detail", request.user.id)
+
+class ReservationDetailView(DetailView):
+    model = Reservation
+    template_name = "reservation_detail.html"
+    context_object_name = "reservation"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reservation = self.get_object()
+
+        # Obliczanie całkowitej ceny rezerwacji
+        days = (reservation.end_date - reservation.start_date).days + 1
+        total_price = days * reservation.car.daily_rate
+
+        context["total_price"] = total_price
+        return context

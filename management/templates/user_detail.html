@@ -176,7 +176,7 @@
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Anuluj</button>
                             </form>
-                            <form action="{% url 'car-detail' res.car.id %}">
+                            <form action="{% url 'reservation-detail' res.id %}">
                                 <button class="btn">Zobacz</button>
                             </form>
                         </div>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szczegóły rezerwacji</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/global.css' %}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        table {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        table th, table td {
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+            color: #333;
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .car-image {
+            text-align: center;
+            max-width: 400px;
+            flex-grow: 1;
+        }
+
+        .car-image img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .placeholder {
+            background-color: #f0f0f0;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            border: 1px dashed #ddd;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+        .price-label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #00C8A0;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #7662b4;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #5e4a99;
+        }
+
+        .top-bar {
+            background-color: #7662b4;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-bar .logo {
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+        }
+
+        .top-bar .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-bar .nav-links a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .top-bar .nav-links a:hover {
+            color: #f1c40f;
+        }
+
+        .top-bar .logout-btn {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .top-bar .logout-btn:hover {
+            color: #f1c40f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
+        <div class="nav-links">
+            <a href="{% url 'cars-list' %}">Lista samochodów</a>
+            <a href="{% url 'user-detail' reservation.user.id %}">Profil użytkownika</a>
+            <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Wyloguj</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Szczegóły rezerwacji</h1>
+
+        <div class="content">
+            <!-- Tabela szczegółów -->
+            <table>
+                <tbody>
+                    <tr>
+                        <th scope="row">Samochód</th>
+                        <td>{{ reservation.car.brand }} {{ reservation.car.model }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Data rozpoczęcia</th>
+                        <td>{{ reservation.start_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Data zakończenia</th>
+                        <td>{{ reservation.end_date }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Cena za dzień</th>
+                        <td>{{ reservation.car.daily_rate }} zł</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Pojemność bagażnika</th>
+                        <td>{{ reservation.car.trunk_size }} l</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Liczba drzwi</th>
+                        <td>{{ reservation.car.doors }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Liczba miejsc</th>
+                        <td>{{ reservation.car.seats }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Obraz i cena -->
+            <div class="car-image">
+                {% if reservation.car.image %}
+                    <img src="{% static reservation.car.image %}" alt="{{ reservation.car.brand }} {{ reservation.car.model }}">
+                {% else %}
+                    <div class="placeholder">Brak zdjęcia</div>
+                {% endif %}
+                <div class="price-label">
+                    Łączna cena: {{ total_price }} zł
+                </div>
+            </div>
+        </div>
+
+        <a href="{% url 'user-detail' reservation.user.id %}" class="btn">Powrót do profilu</a>
+    </div>
+</body>
+</html>
