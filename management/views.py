@@ -11,6 +11,7 @@ from management.forms import CustomUserCreationForm
 from django.utils.timezone import now
 from django.contrib import messages
 
+
 def login_register_view(request):
     login_form = AuthenticationForm()
     register_form = CustomUserCreationForm()
@@ -23,6 +24,8 @@ def login_register_view(request):
                 login(request, user)
                 messages.success(request, "Zalogowano pomyślnie")
                 return redirect("cars-list")
+            else:
+                messages.error(request, "Wprowadzono błędne dane.")
 
         elif "register" in request.POST:
             register_form = CustomUserCreationForm(data=request.POST)

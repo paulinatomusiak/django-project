@@ -22,7 +22,9 @@ class ReservationForm(ModelForm):
         date_now = now()
         today: date = date(date_now.year, date_now.month, date_now.day)
         if start_date < today:
-            raise ValidationError("Data początkowa rezerwacji nie może być z przeszłości.")
+            raise ValidationError(
+                "Data początkowa rezerwacji nie może być z przeszłości."
+            )
         return start_date
 
     def clean_end_date(self) -> date:
@@ -38,6 +40,11 @@ class ReservationForm(ModelForm):
         start_date = cleaned_data.get("start_date")
         end_date = cleaned_data.get("end_date")
 
+        if start_date and end_date and end_date < start_date:
+            raise ValidationError(
+                "Data końcowa nie może być wcześniejsza niż data początkowa."
+            )
+
         if start_date and end_date and self.car:
             overlapping_reservations = Reservation.objects.filter(
                 car=self.car,
@@ -45,5 +52,7 @@ class ReservationForm(ModelForm):
                 end_date__gte=start_date,
             )
             if overlapping_reservations.exists():
-                raise ValidationError("Samochód jest już zarezerwowany w wybranym terminie.")
+                raise ValidationError(
+                    "Samochód jest już zarezerwowany w wybranym terminie."
+                )
         return cleaned_data
