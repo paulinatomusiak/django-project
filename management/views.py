@@ -22,7 +22,6 @@ def login_register_view(request):
             if login_form.is_valid():
                 user = login_form.get_user()
                 login(request, user)
-                messages.success(request, "Zalogowano pomyślnie")
                 return redirect("cars-list")
             else:
                 messages.error(request, "Wprowadzono błędne dane.")
