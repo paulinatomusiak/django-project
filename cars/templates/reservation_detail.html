@@ -7,128 +7,79 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        .reservation-container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .reservation-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        table {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        table th, table td {
-            padding: 10px 12px;
-            text-align: left;
-        }
-
-        table th {
-            background-color: #f4f4f4;
-            color: #333;
-            font-weight: 600;
-        }
-
-        table tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-    </style>
 </head>
 <body>
-    <!-- Menu -->
-    <div class="top-bar">
-        <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
-        <div class="nav-links">
-            <a href="{% url 'cars-list' %}">Lista samochodów</a>
-            <a href="{% url 'user-detail' reservation.user.id %}">Profil użytkownika</a>
-            <form method="post" action="{% url 'logout' %}" style="margin: 0;">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">Wyloguj</button>
-            </form>
-        </div>
+<!-- Menu -->
+<div class="top-bar">
+    <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
+    <div class="nav-links">
+        <a href="{% url 'cars-list' %}">Lista samochodów</a>
+        <a href="{% url 'user-detail' reservation.user.id %}">Profil użytkownika</a>
+        <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Wyloguj</button>
+        </form>
+    </div>
+</div>
+
+<!-- Main -->
+<div class="reservation-container">
+    <h1>Szczegóły rezerwacji</h1>
+
+    <!-- Dates -->
+    <div class="reservation-dates">
+        <p>Początek rezerwacji: <span>{{ reservation.start_date }}</span></p>
+        <p>Koniec rezerwacji: <span>{{ reservation.end_date }}</span></p>
     </div>
 
-    <!-- Main -->
-    <div class="reservation-container">
-        <h1>Szczegóły rezerwacji</h1>
 
-        <!-- Dates -->
-        <div class="reservation-dates">
-            <p>Data rozpoczęcia: <span>{{ reservation.start_date }}</span></p>
-            <p>Data zakończenia: <span>{{ reservation.end_date }}</span></p>
+    <div class="reservation-content">
+
+        <div class="car-image-container">
+            {% if reservation.car.image %}
+            <img src="{% static reservation.car.image %}" alt="{{ reservation.car.brand }} {{ reservation.car.model }}">
+            {% else %}
+            <div class="placeholder">Brak zdjęcia</div>
+            {% endif %}
         </div>
+        <!-- Tabela szczegółów -->
+        <table class="table reservation">
+            <tbody>
+            <th><h2>{{ reservation.car.brand }} {{ reservation.car.model }} </h2></th>
 
-        <div class="reservation-content">
-            <!-- Tabela szczegółów -->
-            <table>
-                <tbody>
-                    <tr>
-                        <th scope="row">Samochód</th>
-                        <td>{{ reservation.car.brand }} {{ reservation.car.model }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Typ samochodu</th>
-                        <td>{{ reservation.car.get_car_type_display }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Typ paliwa</th>
-                        <td>{{ reservation.car.get_fuel_type_display }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Cena za dzień</th>
-                        <td>{{ reservation.car.daily_rate }} zł</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Pojemność bagażnika</th>
-                        <td>{{ reservation.car.trunk_size }} l</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Liczba drzwi</th>
-                        <td>{{ reservation.car.doors }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Liczba miejsc</th>
-                        <td>{{ reservation.car.seats }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Zdjecie samochodu -->
-            <div class="car-image">
-                {% if reservation.car.image %}
-                    <img src="{% static reservation.car.image %}" alt="{{ reservation.car.brand }} {{ reservation.car.model }}">
-                {% else %}
-                    <div class="placeholder">Brak zdjęcia</div>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- Cena -->
-        <div class="price-label">
-            Kwota do zapłaty: {{ total_price }} zł
-        </div>
-
-        <div>
-            <a href="{% url 'user-detail' reservation.user.id %}" class="btn">Powrót do rezerwacji</a>
-        </div>
+            <tr>
+                <th scope="row"><br>Typ samochodu</th>
+                <td>{{ reservation.car.get_car_type_display }}</td>
+            </tr>
+            <tr>
+                <th scope="row"><br>Typ paliwa</th>
+                <td>{{ reservation.car.get_fuel_type_display }}</td>
+            </tr>
+            <tr>
+                <th scope="row"><br>Pojemność bagażnika</th>
+                <td>{{ reservation.car.trunk_size }} l</td>
+            </tr>
+            <tr>
+                <th scope="row"><br>Liczba drzwi</th>
+                <td>{{ reservation.car.doors }}</td>
+            </tr>
+            <tr>
+                <th scope="row"><br>Liczba miejsc</th>
+                <td>{{ reservation.car.seats }}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
+
+    <!-- Cena -->
+    <div class="price-label">
+        Kwota do zapłaty: {{ total_price }} zł
+    </div>
+
+    <div>
+        <a href="{% url 'user-detail' reservation.user.id %}" class="btn">Powrót do rezerwacji</a>
+    </div>
+</div>
 </body>
 </html>

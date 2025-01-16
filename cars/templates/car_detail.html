@@ -7,192 +7,95 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        .table-container {
-            flex: 1;
-        }
-        table {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-collapse: collapse;
-        }
-
-        table th, table td {
-            padding: 15px 15px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        table th {
-            background-color: #f4f4f4;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-       .date-fields {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-       .fieldWrapper {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-       .fieldWrapper label {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-       .fieldWrapper input {
-            width: 100%;
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-       .fieldWrapper .error {
-            color: #d9534f;
-            font-size: 12px;
-            background-color: #fbe4e4;
-            padding: 5px 10px;
-            border: 1px solid #d9534f;
-            border-radius: 5px;
-            margin-top: 5px;
-        }
-
-       .reservation-box input[type="submit"] {
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #fff;
-            background-color: #7662b4;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-       .reservation-box input[type="submit"]:hover {
-            background-color: #5e4a99;
-        }
-
-       .validation-error {
-            color: #d9534f;
-            font-size: 14px;
-            font-weight: 600;
-            margin-top: 15px;
-            background-color: #fbe4e4;
-            padding: 10px;
-            border: 1px solid #d9534f;
-            border-radius: 5px;
-    </style>
 </head>
 <body>
-    <!-- Menu -->
-    <div class="top-bar">
-        <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
-        <div class="nav-links">
-            <a href="{% url 'cars-list' %}">Lista samochodów</a>
-            <a href="{% url 'user-detail' request.user.id %}">Moje rezerwacje</a>
-            <form method="post" action="{% url 'logout' %}" style="margin: 0;">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">Wyloguj</button>
-            </form>
+<!-- Menu -->
+<div class="top-bar">
+    <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
+    <div class="nav-links">
+        <a href="{% url 'cars-list' %}">Lista samochodów</a>
+        <a href="{% url 'user-detail' request.user.id %}">Moje rezerwacje</a>
+        <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Wyloguj</button>
+        </form>
+    </div>
+</div>
+
+<!-- Main -->
+<div class="car-detail-container">
+    <h1>{{ car.brand }} {{ car.model }}</h1>
+
+    <div class="car-detail-content">
+        <!-- Tabela szczegółów -->
+        <div class="table-container cardetail">
+            <table class="table cardetail">
+                <tbody>
+                <tr>
+                    <th>Rok produkcji</th>
+                    <td>{{ car.year }}</td>
+                </tr>
+                <tr>
+                    <th>Typ nadwozia</th>
+                    <td>{{ car.get_car_type_display }}</td>
+                </tr>
+                <tr>
+                    <th>Typ paliwa</th>
+                    <td>{{ car.get_fuel_type_display }}</td>
+                </tr>
+                <tr>
+                    <th>Typ skrzyni biegów</th>
+                    <td>{{ car.get_transmission_display }}</td>
+                </tr>
+                <tr>
+                    <th>Pojemność bagażnika</th>
+                    <td>{{ car.trunk_size }} l</td>
+                </tr>
+                <tr>
+                    <th>Liczba drzwi</th>
+                    <td>{{ car.doors }}</td>
+                </tr>
+                <tr>
+                    <th>Liczba miejsc</th>
+                    <td>{{ car.seats }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="price">Stawka dzienna: {{ car.daily_rate }} zł</div>
+        </div>
+
+        <!-- Zdjecie samochodu -->
+        <div class="car-image-container">
+            {% if car.image %}
+            <img src="{% static car.image %}" alt="{{ car.brand }} {{ car.model }}">
+            {% else %}
+            <div class="placeholder">Brak zdjęcia</div>
+            {% endif %}
         </div>
     </div>
 
-    <!-- Main -->
-    <div class="car-detail-container">
-        <h1>{{ car.brand }} {{ car.model }}</h1>
-
-        <div class="car-detail-content">
-            <!-- Tabela szczegółów -->
-            <div class="table-container">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Rok produkcji</th>
-                            <td>{{ car.year }}</td>
-                        </tr>
-                        <tr>
-                            <th>Typ nadwozia</th>
-                            <td>{{ car.get_car_type_display }}</td>
-                        </tr>
-                        <tr>
-                            <th>Typ paliwa</th>
-                            <td>{{ car.get_fuel_type_display }}</td>
-                        </tr>
-                        <tr>
-                            <th>Typ skrzyni biegów</th>
-                            <td>{{ car.get_transmission_display }}</td>
-                        </tr>
-                        <tr>
-                            <th>Pojemność bagażnika</th>
-                            <td>{{ car.trunk_size }} l</td>
-                        </tr>
-                        <tr>
-                            <th>Liczba drzwi</th>
-                            <td>{{ car.doors }}</td>
-                        </tr>
-                        <tr>
-                            <th>Liczba miejsc</th>
-                            <td>{{ car.seats }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="price">Stawka dzienna: {{ car.daily_rate }} zł</div>
-            </div>
-
-            <!-- Zdjecie samochodu -->
-            <div class="car-image-container">
-                {% if car.image %}
-                    <img src="{% static car.image %}" alt="{{ car.brand }} {{ car.model }}">
-                {% else %}
-                    <div class="placeholder">Brak zdjęcia</div>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="reservation-box">
-            <h2>Zarezerwuj samochód</h2>
-            <form method="POST" action="{% url 'car-reserve' car.id %}">
-                {% csrf_token %}
-                <div class="form-container">
-                    <div class="date-fields">
-                        {% for field in form %}
-                            <div class="fieldWrapper">
-                                {{ field.label_tag }} {{ field }}
-                                {% if field.errors %}
-                                    <div class="error">{{ field.errors|join:", " }}</div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
+    <div class="reservation-box cardetail">
+        <h2>Zarezerwuj samochód</h2>
+        <form method="POST" action="{% url 'car-reserve' car.id %}">
+            {% csrf_token %}
+            <div class="form-container cardetail">
+                <div class="date-fields cardetail">
+                    {% for field in form %}
+                    <div class="fieldWrapper cardetail">
+                        {{ field.label_tag }} {{ field }}
+                        {% if field.errors %}
+                        <div class="error">{{ field.errors|join:", " }}</div>
+                        {% endif %}
                     </div>
-                    {% if form.non_field_errors %}
-                        <div class="validation-error">{{ form.non_field_errors|join:", " }}</div>
-                    {% endif %}
-                    <input type="submit" value="Rezerwuj">
+                    {% endfor %}
                 </div>
-            </form>
-        </div>
+                {% if form.non_field_errors %}
+                <div class="validation-error cardetail">{{ form.non_field_errors|join:", " }}</div>
+                {% endif %}
+                <input type="submit" value="Rezerwuj">
+            </div>
+        </form>
     </div>
+</div>
 </body>
 </html>

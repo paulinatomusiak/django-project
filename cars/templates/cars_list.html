@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -10,71 +9,77 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     {% load static %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 </head>
 
 <body>
-    <!-- Menu -->
-    <div class="top-bar">
-        <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
-        <div class="nav-links">
-            <a href="{% url 'cars-list' %}">Lista samochodów</a>
-            <a href="{% url 'user-detail' request.user.id %}">Profil użytkownika</a>
-            <form method="post" action="{% url 'logout' %}" style="margin: 0;">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">Wyloguj</button>
-            </form>
-        </div>
+<!-- Menu -->
+<div class="top-bar">
+    <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
+    <div class="nav-links">
+        <a href="{% url 'cars-list' %}">Lista samochodów</a>
+        <a href="{% url 'user-detail' request.user.id %}">Profil użytkownika</a>
+        <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Wyloguj</button>
+        </form>
     </div>
+</div>
 
-    <!-- Main -->
-    <div class="list-container">
-        <h1>Cars for Rent</h1>
+<!-- Main -->
+<div class="list-container">
 
-        <!-- Box z filtrowaniem -->
-        <div class="list-filter-box">
-            <form method="get">
-                <div class="list-filter-section">
-                    <h2>Dane techniczne</h2> {{ filter.form.brand.label_tag }} {{ filter.form.brand }} {{ filter.form.seats.label_tag }} {{ filter.form.seats }} {{ filter.form.car_type.label_tag }} {{ filter.form.car_type }} {{ filter.form.fuel_type.label_tag }} {{ filter.form.fuel_type }} {{ filter.form.transmission.label_tag }} {{ filter.form.transmission }}
-                </div>
-                <div class="list-filter-section">
-                    <h2>Dostępność w datach</h2> {{ filter.form.start_date.label_tag }} {{ filter.form.start_date }} {{ filter.form.end_date.label_tag }} {{ filter.form.end_date }}
-                </div>
-                <div class="list-filter-actions">
-                    <button type="submit" class="list-filter-btn">Filtruj</button>
-                    <a href="{% url 'cars-list' %}" class="list-reset-btn">Resetuj</a>
-                </div>
-            </form>
-        </div>
-
-        <!-- Liczba dostępnych samochodów -->
-        <p class="list-record-info">Liczba dostępnych samochodów: {{ record_count }}</p>
-
-        {% if object_list %}
-        <div class="list-cars-grid">
-            {% for car in object_list %}
-            <div class="list-car-card">
-                {% if car.image %}
-                <img src="{% static car.image %}" alt="{{ car.brand }} {{ car.model }}"> {% else %}
-                <img src="{% static 'default.jpg' %}" alt="Default Image"> {% endif %}
-                <div class="name">{{ car.brand }} {{ car.model }}</div>
-                <div class="list-details">
-                    <i class="fas fa-gas-pump"></i> {{ car.get_fuel_type_display }}
-                    <br>
-                    <i class="fas fa-car"></i> {% if car.get_transmission_display == "Automatyczna" %} Automat {% elif car.get_transmission_display == "Manualna" %} Manual {% else %} {{ car.get_transmission_display }} {% endif %}
-                    <br>
-                    <i class="fas fa-users"></i> {{ car.seats }}
-                </div>
-                <a href="{% url 'car-detail' car.id %}" class="list-details-btn">Wybierz</a>
+    <!-- Box z filtrowaniem -->
+    <div class="list-filter-box">
+        <form method="get">
+            <div class="list-filter-section">
+                <h2>Dane techniczne</h2> {{ filter.form.brand.label_tag }} {{ filter.form.brand }} {{
+                filter.form.seats.label_tag }} {{ filter.form.seats }} {{ filter.form.car_type.label_tag }} {{
+                filter.form.car_type }} {{ filter.form.fuel_type.label_tag }} {{ filter.form.fuel_type }} {{
+                filter.form.transmission.label_tag }} {{ filter.form.transmission }}
             </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p class="list-no-cars">There are no cars for rent</p>
-        {% endif %}
+            <div class="list-filter-section">
+                <h2>Dostępność w datach</h2> {{ filter.form.start_date.label_tag }} {{ filter.form.start_date }} {{
+                filter.form.end_date.label_tag }} {{ filter.form.end_date }}
+            </div>
+            <div class="list-filter-actions">
+                <button type="submit" class="list-filter-btn">Filtruj</button>
+                <a href="{% url 'cars-list' %}" class="list-reset-btn">Resetuj</a>
+            </div>
+        </form>
     </div>
+
+    <!-- Liczba dostępnych samochodów -->
+    <p class="list-record-info">Liczba dostępnych samochodów: {{ record_count }}</p>
+
+    {% if object_list %}
+    <div class="list-cars-grid">
+        {% for car in object_list %}
+        <div class="list-car-card">
+            {% if car.image %}
+            <img src="{% static car.image %}" alt="{{ car.brand }} {{ car.model }}"> {% else %}
+            <img src="{% static 'default.jpg' %}" alt="Default Image"> {% endif %}
+            <div class="name">{{ car.brand }} {{ car.model }}</div>
+            <div class="list-details">
+                <i class="fas fa-gas-pump"></i> {{ car.get_fuel_type_display }}
+                <br>
+                <i class="fas fa-car"></i> {% if car.get_transmission_display == "Automatyczna" %} Automat {% elif
+                car.get_transmission_display == "Manualna" %} Manual {% else %} {{ car.get_transmission_display }} {%
+                endif %}
+                <br>
+                <i class="fas fa-users"></i> {{ car.seats }}
+            </div>
+            <a href="{% url 'car-detail' car.id %}" class="list-details-btn">Wybierz</a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="list-no-cars">There are no cars for rent</p>
+    {% endif %}
+</div>
 </body>
 
 </html>

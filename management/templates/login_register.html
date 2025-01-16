@@ -7,90 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        .forms-container {
-            display: flex;
-            gap: 50px;
-            justify-content: center;
-        }
-
-        .form-section {
-            flex: 1;
-            max-width: 350px;
-        }
-
-        .form-section h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        form {
-            display: block;
-            flex-direction: column;
-            height: 400px;
-            justify-content: center; /* Centruje pola w pionie */
-            align-items: center;    /* Opcjonalnie centruje pola w poziomie */
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        form .form-field {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        form label {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        form input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        form button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #fff;
-            background-color: #7662b4;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        form button:hover {
-            background-color: #5e4a99;
-        }
-
-        .form-section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100%;
-    }
-
-
-    </style>
 </head>
 <body>
 <div class="top-bar">
     <a href="{% url 'home' %}" class="logo">CarBooking</a>
 </div>
 
-<div class="login-register">
+<div class="login-register-container">
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -99,13 +22,13 @@
     </ul>
     {% endif %}
 
-    <div class="forms-container">
-        <div class="form-section">
-            <h2>Logowanie</h2>
-            <form method="post" action="">
+    <div class="forms-container login">
+        <div class="form-section login">
+            <h2 class="form-section login title">Logowanie</h2>
+            <form method="post" action="" class="form login">
                 {% csrf_token %}
                 {% for field in login_form %}
-                <div class="form-field">
+                <div class="form-field login">
                     {{ field.label_tag }}
                     {{ field }}
                     {% if field.help_text %}
@@ -116,12 +39,13 @@
                 <button type="submit" name="login">Zaloguj</button>
             </form>
         </div>
-        <div class="form-section">
-            <h2>Rejestracja</h2>
-            <form method="post" action="">
+        <div class="form-section login">
+            <h2 class="form-section login title">Rejestracja</h2>
+
+            <form method="post" action="" class="form login">
                 {% csrf_token %}
                 {% for field in register_form %}
-                <div class="form-field">
+                <div class="form-field login">
                     {{ field.label_tag }}
                     {{ field }}
                     {% if field.help_text %}
