@@ -339,6 +339,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     align-items: center;
     flex-wrap: wrap;
+}
 
 .reservation-dates p {
     margin: 0;
@@ -892,13 +893,3 @@ table.reservation tr:nth-child(even) {
     background-color: #ffffff;
 }
 
-@media (max-width: 768px) {
-    .car-image-container {
-        max-width: 100%;
-        margin: 0 auto;
-    }
-
-    .car-image-container img {
-        max-height: 300px;
-    }
-}
