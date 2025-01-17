@@ -31,8 +31,6 @@
 
     <!-- Main -->
     <div class="list-container">
-        <h1>Cars for Rent</h1>
-
         <!-- Box z filtrowaniem -->
         <div class="list-filter-box">
             <form method="get">
@@ -72,7 +70,7 @@
             {% endfor %}
         </div>
         {% else %}
-        <p class="list-no-cars">There are no cars for rent</p>
+        <p class="list-no-cars">Brak samochodów spełniających wybrane kryteria. Spróbuj zmienić ustawienia filtrowania.</p>
         {% endif %}
     </div>
 </body>

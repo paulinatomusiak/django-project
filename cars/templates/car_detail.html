@@ -14,7 +14,7 @@
     <a href="{% url 'cars-list' %}" class="logo">CarBooking</a>
     <div class="nav-links">
         <a href="{% url 'cars-list' %}">Lista samochodów</a>
-        <a href="{% url 'user-detail' request.user.id %}">Moje rezerwacje</a>
+        <a href="{% url 'user-detail' request.user.id %}">Profil użytkownika</a>
         <form method="post" action="{% url 'logout' %}" style="margin: 0;">
             {% csrf_token %}
             <button type="submit" class="logout-btn">Wyloguj</button>
@@ -96,6 +96,10 @@
             </div>
         </form>
     </div>
+    <div>
+        <a href="{% url 'cars-list' %}" class="btn">Powrót listy</a>
+    </div>
+
 </div>
 </body>
 </html>
