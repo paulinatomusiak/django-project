@@ -7,7 +7,7 @@ body {
 }
 
 .btn {
-    background-color: #978AB5;
+    background-color: #D5CABD;
     border: none;
     border-radius: 5px;
     color: #fff;
@@ -23,15 +23,19 @@ body {
 }
 
 .btn:hover {
-    background-color: #D5CABD;
+    background-color: #A89E91;
 }
 
 .btn-danger {
-    background-color: #FF98AD;
+    background-color:#FFCF74;
+}
+
+.btn-reservation-detail{
+    background-color: #978AB5;
 }
 
 .btn-danger:hover {
-    background-color: #D5CABD;
+    background-color: #A89E91;
 }
 
 .car-card {
@@ -277,7 +281,7 @@ body {
 }
 
 .price {
-    background-color: #FF98AD;
+    background-color:#FFCF74;
     border-radius: 15px;
     color: #fff;
     font-size: 16px;
@@ -290,7 +294,7 @@ body {
 }
 
 .price-label {
-    background-color: #FF98AD;
+    background-color:#FFCF74;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: #fff;
@@ -690,7 +694,7 @@ form.login {
     flex-direction: column;
     height: 400px;
     justify-content: center;
-    align-items: center;    /
+    align-items: center;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -828,7 +832,7 @@ table.cardetail th {
 }
 
 .reservation-box.cardetail input[type="submit"]:hover {
-    background-color: #D5CABD;
+    background-color: #5A4F76;
 }
 
 .validation-error.cardetail {
@@ -894,4 +898,207 @@ table.reservation th {
 table.reservation tr:nth-child(even) {
     background-color: #ffffff;
 }
+
+/* Mobile view */
+@media (max-width: 768px) {
+    .forms-container.login {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .form-section.login {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    form.login {
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .top-bar .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+    }
+
+    .top-bar .logo {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .top-bar .logout-btn {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+    .list-filter-box form {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .list-filter-section {
+        margin-bottom: 15px;
+    }
+
+    .list-filter-section h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .list-filter-box label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .list-filter-box input,
+    .list-filter-box select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .list-filter-actions {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .list-filter-btn,
+    .list-reset-btn {
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: block;
+    }
+    .car-detail-container {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .car-detail-content {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .car-image-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .car-image-container img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .table-container.cardetail {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .table.cardetail {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table.cardetail th,
+    .table.cardetail td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .price {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px 0;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .reservation-box.cardetail .form-container.cardetail {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .reservation-box.cardetail .date-fields.cardetail {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .fieldWrapper.cardetail input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .reservation-box.cardetail input[type="submit"] {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .reservation-box.cardetail input[type="submit"] {
+        width: 50%;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+
+    .btn:hover {
+        background-color: #D5CABD;
+    }
+
+    .fieldWrapper.cardetail {
+        width: 100%;
+    }
+
+    .fieldWrapper.cardetail input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .price {
+        font-size: 14px;
+        text-align: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .reservation-container {
+        padding: 15px;
+    }
+
+    .reservation-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    table.reservation {
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+}
+
 
