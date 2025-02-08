@@ -10,7 +10,6 @@ from typing import Any
 from django.contrib.auth.decorators import login_required
 
 
-
 class CarsListView(FilterView):
     model = Car
     template_name = "cars_list.html"
@@ -19,9 +18,7 @@ class CarsListView(FilterView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["record_count"] = context[
-            "object_list"
-        ].count()
+        context["record_count"] = context["object_list"].count()
         return context
 
 
@@ -66,11 +63,13 @@ def create_reservation(request: HttpRequest, pk: int) -> HttpResponse:
 
     return redirect("cars-list")
 
+
 @login_required
 def delete_reservation(request: HttpRequest, pk: int) -> HttpResponse:
     reservation = get_object_or_404(Reservation, pk=pk, user=request.user)
     reservation.delete()
     return redirect("user-detail", request.user.id)
+
 
 class ReservationDetailView(DetailView):
     model = Reservation
@@ -81,7 +80,6 @@ class ReservationDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         reservation = self.get_object()
 
-        # Obliczanie całkowitej ceny rezerwacji
         days = (reservation.end_date - reservation.start_date).days + 1
         total_price = days * reservation.car.daily_rate
 

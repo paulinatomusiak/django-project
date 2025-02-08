@@ -8,8 +8,8 @@ class Command(BaseCommand):
     help = "Generates sample car data for development"
 
     def handle(self, *args, **options) -> None:
-        TRANSMISSION_CHOICES: list[str] = ["manual", "automatic"]
-        FUEL_TYPE_CHOICES: list[str] = ["petrol", "diesel", "electric", "hybrid"]
+        transmission_choices: list[str] = ["manual", "automatic"]
+        fuel_type_choices: list[str] = ["petrol", "diesel", "electric", "hybrid"]
 
         car_types: dict = {
             "sedan": {"photo": "car_photos/1.jpeg", "seats": 5, "doors": 4},
@@ -41,9 +41,9 @@ class Command(BaseCommand):
                 daily_rate=round(random.uniform(50, 500), 2),
                 doors=car_data["doors"],
                 car_type=car_type,
-                transmission=random.choice(TRANSMISSION_CHOICES),
+                transmission=random.choice(transmission_choices),
                 seats=car_data["seats"],
-                fuel_type=random.choice(FUEL_TYPE_CHOICES),
+                fuel_type=random.choice(fuel_type_choices),
                 trunk_size=random.randint(200, 600),
                 image=car_data["photo"],
             )

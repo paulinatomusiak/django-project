@@ -7,14 +7,15 @@ from management.models import User
 
 
 def random_date(start: date, end: date) -> date:
-    """
-    This function will return a random date between two date objects.
-    """
     delta = end - start
     int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
     random_second = random.randint(0, int_delta)
-    random_date = start + timedelta(seconds=random_second)
-    return date(random_date.year, random_date.month, random_date.day)
+    generated_random_date = start + timedelta(seconds=random_second)
+    return date(
+        generated_random_date.year,
+        generated_random_date.month,
+        generated_random_date.day,
+    )
 
 
 def to_date(passed_date: date) -> date:

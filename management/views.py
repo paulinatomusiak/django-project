@@ -54,7 +54,6 @@ class CustomLogoutView(LogoutView):
         return super().dispatch(request, *args, **kwargs)
 
     def handle_logout_message(self, request: HttpRequest) -> None:
-        """Clears old messages and adds a new logout success message."""
         storage = messages.get_messages(request)
         storage.used = True
         messages.success(request, "Wylogowano pomyślnie!")
